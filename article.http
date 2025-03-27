@@ -1,0 +1,32 @@
+GET http://localhost:4000/api/v1/articles HTTP/1.1
+
+###
+GET http://localhost:4000/api/v1/article/67e302c98c7cc87561123a17 HTTP/1.1
+
+###
+POST http://localhost:4000/api/v1/article HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTM1ZjQwMDRkNTMzNGM1YjIxYWY4OSIsImVtYWlsIjoiZ3Vlc3RAdGVzdC5jb20iLCJ1c2VybmFtZSI6Imd1ZXN0IiwiaWF0IjoxNzQzMDIxODY4LCJleHAiOjE3NDMwMjU0Njh9.v-b3w8Qyklk0XqifgYmDTxEmGAfpp88mF6DeIQc-oK8  
+
+{
+    "name": "Picada",
+    "brand": "_",
+    "description": "salame, queso, jamon, etc",
+    "price": "$10 dls"
+}
+
+//Manager
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTM1ZjZhMDRkNTMzNGM1YjIxYWY4ZCIsImVtYWlsIjoidGVzdDAwQHRlc3QuY29tIiwidXNlcm5hbWUiOiJ0ZXN0MDAiLCJpYXQiOjE3NDMwMjExODIsImV4cCI6MTc0MzAyNDc4Mn0.T3H93g_GvqmhqJ1UvSiWJ0BBJYwBj00SU_OvzGuTsKE  
+
+###
+PUT http://localhost:4000/api/v1/article/67e302c98c7cc87561123a17 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTM1ZjZhMDRkNTMzNGM1YjIxYWY4ZCIsImVtYWlsIjoidGVzdDAwQHRlc3QuY29tIiwidXNlcm5hbWUiOiJ0ZXN0MDAiLCJpYXQiOjE3NDMwMTU3MTQsImV4cCI6MTc0MzAxOTMxNH0.eAtWpI3O9xrXhLTY5un9GfeDh781ohVBSOA67T4kKE0 
+
+{
+    "name": "Pringles Tubo"
+}
+
+###
+DELETE http://localhost:4000/api/v1/article/67e4468fca6d7fc440d3c819 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTM1ZjZhMDRkNTMzNGM1YjIxYWY4ZCIsImVtYWlsIjoidGVzdDAwQHRlc3QuY29tIiwidXNlcm5hbWUiOiJ0ZXN0MDAiLCJpYXQiOjE3NDMwMTU3MTQsImV4cCI6MTc0MzAxOTMxNH0.eAtWpI3O9xrXhLTY5un9GfeDh781ohVBSOA67T4kKE0 

@@ -1,0 +1,29 @@
+GET http://localhost:4000/api/v1/users HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTM1ZWI0MDRkNTMzNGM1YjIxYWY4MSIsImVtYWlsIjoiYWRtaW5AdGVzdC5jb20iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQzMDIzMjEwLCJleHAiOjE3NDMwMjY4MTB9.thJJdteVraXVBz8DupLhQ2xpUGUkvNm30rnaaX6HHt0
+
+###
+GET http://localhost:4000/api/v1/users/67e35e2904d5334c5b21af7d HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTM1ZWI0MDRkNTMzNGM1YjIxYWY4MSIsImVtYWlsIjoiYWRtaW5AdGVzdC5jb20iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQzMDIzMjEwLCJleHAiOjE3NDMwMjY4MTB9.thJJdteVraXVBz8DupLhQ2xpUGUkvNm30rnaaX6HHt0
+
+
+###
+POST http://localhost:4000/api/v1/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "user",
+    "username": "user",
+    "email": "user@test.com"
+}
+
+###
+PUT http://localhost:4000/api/v1/users/67e35f4004d5334c5b21af89 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTM1ZWI0MDRkNTMzNGM1YjIxYWY4MSIsImVtYWlsIjoiYWRtaW5AdGVzdC5jb20iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQzMDIzMjEwLCJleHAiOjE3NDMwMjY4MTB9.thJJdteVraXVBz8DupLhQ2xpUGUkvNm30rnaaX6HHt0
+Content-Type: application/json
+
+{
+    "permissions": ["article_read", "article_write"]
+}
+
+###
+DELETE http://localhost:4000/api/v1/users/67dc8610feaf0d81448603cb HTTP/1.1
