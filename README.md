@@ -1,2 +1,2 @@
 # Auth-Users-Api
-Api de registro, autenticación y permisos.
+Api de registro, autenticación y permisos template.
