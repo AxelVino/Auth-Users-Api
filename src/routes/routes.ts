@@ -14,6 +14,7 @@ import {
   updateUser,
 } from "@controllers/usersControllers";
 import {
+  authToken,
   loginUser,
   registerUser,
 } from "@controllers/authentication/authControllers";
@@ -26,13 +27,23 @@ import {
 } from "@controllers/articlesControllers";
 import { getPermissions, verifyToken } from "@middlewares/auth";
 import { checkRoles } from "@middlewares/roles";
+import { asyncHandler } from "../utils/asyncHandlers";
 
 const router = Router();
 
 export default () => {
   //Auth Routes
-  router.post("/auth/register", checkRoles, registerUser);
-  router.post("/auth/login", loginUser);
+  router.post(
+    "/auth/register",
+    asyncHandler(checkRoles),
+    asyncHandler(registerUser)
+  );
+  router.post("/auth/login", asyncHandler(loginUser));
+  router.post(
+    "/auth/verify",
+    asyncHandler(verifyToken),
+    asyncHandler(authToken)
+  );
 
   //Users Routes
   router.get("/users/", verifyToken, getPermissions, findUsers);

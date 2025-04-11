@@ -10,26 +10,29 @@ const userService: IUserService = new UserService(userRepository);
 
 export const verifyToken = async (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ) => {
-  const jwtSecret = process.env.JTW_SECRET as string;
-  const token = req.headers.authorization?.replace(/^Bearer\s+/, "") as string;
+  const token = req.cookies.token;
 
-  try {
-    const verify = jwt.verify(token, jwtSecret) as User;
-
-    const getUser = await userService.findUsersById(verify.id);
-    if (getUser) {
-      req.currentUser = getUser;
-    } else {
-      res.status(400);
-    }
-    next();
-  } catch (error: any) {
-    console.log("error :>> ", error);
-    res.status(401).send(error.message);
+  if (!token) {
+    return next(new Error("No autorizado"));
   }
+
+  //const jwtSecret = process.env.JTW_SECRET as string;
+  //const token = req.headers.authorization?.replace(/^Bearer\s+/, "") as string;
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET!) as User;
+
+  //const verify = jwt.verify(token, jwtSecret) as User;
+  const getUser = await userService.findUsersById(decoded.id);
+  if (!getUser) {
+    return next(new Error("Usuario no encontrado"));
+  }
+
+  req.currentUser = getUser;
+
+  next();
 };
 
 export const getPermissions = async (
