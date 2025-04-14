@@ -6,3 +6,7 @@ npm-debug.log
 package-lock.json
 dist
 .vscode
+article.http
+auth.http
+roles.http
+users.http

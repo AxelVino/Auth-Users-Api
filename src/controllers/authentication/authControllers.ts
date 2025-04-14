@@ -13,11 +13,11 @@ export const registerUser = async (req: Request, res: Response) => {
   if (userExists) throw new Error("Email already exists!");
 
   const newUser = await userService.createUser(req.body);
-  res.status(201).json(newUser);
+  res.status(201).json({ message: `User created: ${newUser.username}` });
 };
 
 export const loginUser = async (req: Request, res: Response) => {
-  const jwtSecret = process.env.JTW_SECRET as string;
+  const jwtSecret = process.env.JWT_SECRET as string;
   const { email, password }: User = req.body;
   const user = await userService.findUsersByEmail(email);
 
@@ -27,23 +27,16 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!comparePass) {
       throw new Error("Invalid user or password!");
     } else {
-      const token = jwt.sign(
-        { id: user.id, email: user.email, username: user.username },
-        jwtSecret,
-        { expiresIn: "5m" }
-      );
+      const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: "5m" });
       res
         .cookie("token", token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
+          sameSite: "none",
           maxAge: 5 * 60 * 1000,
         })
         .json({
-          email: user.email,
           username: user.username,
-          name: user.name,
-          id: user.id,
         });
     }
   } else {
@@ -53,9 +46,6 @@ export const loginUser = async (req: Request, res: Response) => {
 
 export const authToken = async (req: Request, res: Response) => {
   res.json({
-    name: req.currentUser.name,
     username: req.currentUser.username,
-    email: req.currentUser.email,
-    id: req.currentUser.id,
   });
 };

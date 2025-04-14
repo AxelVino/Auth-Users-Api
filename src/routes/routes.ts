@@ -33,12 +33,18 @@ const router = Router();
 
 export default () => {
   //Auth Routes
+
+  //Create user
   router.post(
     "/auth/register",
     asyncHandler(checkRoles),
     asyncHandler(registerUser)
   );
+
+  //Login user
   router.post("/auth/login", asyncHandler(loginUser));
+
+  //Re-auth
   router.post(
     "/auth/verify",
     asyncHandler(verifyToken),
