@@ -2,7 +2,10 @@ import { UserRepository } from "@repositories/userRepositories";
 import { UserService } from "@services/userServices";
 import { Request, Response } from "express";
 import { IUserRepository, IUserService, User } from "types/usersTypes";
-import jwt from "jsonwebtoken";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "@utils/generateToken";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);
@@ -17,7 +20,6 @@ export const registerUser = async (req: Request, res: Response) => {
 };
 
 export const loginUser = async (req: Request, res: Response) => {
-  const jwtSecret = process.env.JWT_SECRET as string;
   const { email, password }: User = req.body;
   const user = await userService.findUsersByEmail(email);
 
@@ -27,17 +29,25 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!comparePass) {
       throw new Error("Invalid user or password!");
     } else {
-      const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: "5m" });
-      res
-        .cookie("token", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "none",
-          maxAge: 5 * 60 * 1000,
-        })
-        .json({
-          username: user.username,
-        });
+      const tokenA = generateAccessToken(user);
+      const tokenR = generateRefreshToken(user);
+      res.cookie("accessToken", tokenA, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        maxAge: 5 * 60 * 1000,
+        path: "/",
+      });
+      res.cookie("refreshToken", tokenR, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        path: "/auth/refresh",
+      });
+      res.json({
+        username: user.username,
+      });
     }
   } else {
     throw new Error("Invalid user or password!");

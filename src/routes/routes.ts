@@ -25,31 +25,34 @@ import {
   findArticles,
   updateArticle,
 } from "@controllers/articlesControllers";
-import { getPermissions, verifyToken } from "@middlewares/auth";
+import {
+  getPermissions,
+  verifyToken,
+  refreshAccessToken,
+} from "@middlewares/auth";
 import { checkRoles } from "@middlewares/roles";
 import { asyncHandler } from "../utils/asyncHandlers";
 
 const router = Router();
 
 export default () => {
-  //Auth Routes
-
+  //LOGIN EP
   //Create user
   router.post(
     "/auth/register",
     asyncHandler(checkRoles),
     asyncHandler(registerUser)
   );
-
   //Login user
   router.post("/auth/login", asyncHandler(loginUser));
-
-  //Re-auth
+  //Access token
   router.post(
     "/auth/verify",
     asyncHandler(verifyToken),
     asyncHandler(authToken)
   );
+  //Refresh token
+  router.post("/auth/refresh", asyncHandler(refreshAccessToken));
 
   //Users Routes
   router.get("/users/", verifyToken, getPermissions, findUsers);
