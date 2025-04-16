@@ -55,7 +55,7 @@ export default () => {
   router.post("/auth/refresh", asyncHandler(refreshAccessToken));
 
   //Users Routes
-  router.get("/users/", verifyToken, getPermissions, findUsers);
+  router.get("/users", findUsers);
   router.get("/users/:id", verifyToken, getPermissions, findUsersById);
   router.post("/users", verifyToken, getPermissions, checkRoles, createUser);
   router.put("/users/:id", verifyToken, getPermissions, updateUser);

@@ -33,14 +33,14 @@ export const loginUser = async (req: Request, res: Response) => {
       const tokenR = generateRefreshToken(user);
       res.cookie("accessToken", tokenA, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "none",
         maxAge: 5 * 60 * 1000,
         path: "/",
       });
       res.cookie("refreshToken", tokenR, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
         path: "/auth/refresh",

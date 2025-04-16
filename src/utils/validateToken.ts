@@ -1,6 +1,6 @@
 import { User } from "../types/usersTypes";
 import jwt from "jsonwebtoken";
-import { JWT_REMO, JWT_ROMULUS } from "../utils/env";
+import { JWT_REMO, JWT_ROMULO } from "../utils/env";
 import { Request } from "express";
 
 function validateAccess(req: Request) {
@@ -21,7 +21,7 @@ function validateRefresh(req: Request) {
     throw new Error("No authorized!");
   }
   try {
-    return jwt.verify(token, JWT_ROMULUS) as User;
+    return jwt.verify(token, JWT_ROMULO) as User;
   } catch (err) {
     throw new Error("Invalid or expired access token");
   }

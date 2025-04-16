@@ -10,3 +10,5 @@ article.http
 auth.http
 roles.http
 users.http
+key.pem
+cert.pem

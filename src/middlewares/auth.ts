@@ -46,7 +46,7 @@ export const refreshAccessToken = async (
     const newAccessToken = generateAccessToken(user);
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 5 * 60 * 1000, // 5 minutos
     });

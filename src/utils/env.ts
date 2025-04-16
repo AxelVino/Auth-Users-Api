@@ -6,4 +6,4 @@ if (!jwtA || !jwtR) {
 }
 
 export const JWT_REMO: string = jwtA;
-export const JWT_ROMULUS: string = jwtR;
+export const JWT_ROMULO: string = jwtR;

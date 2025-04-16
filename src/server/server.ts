@@ -12,6 +12,7 @@ import { NotFoundError } from "../errors/notFoundError";
 const app: Application = express();
 
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 //Luego condicionar esto para que no se realice en modo produccion
 app.use((req, _res, next) => {
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use("/api/v1", routes());
+
 app.use((_req, _res, next) => {
   next(new NotFoundError());
 });
